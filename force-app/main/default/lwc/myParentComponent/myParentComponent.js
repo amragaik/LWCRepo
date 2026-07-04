@@ -1,4 +1,4 @@
-import { LightningElement, api } from 'lwc';
+import { LightningElement, wire } from 'lwc';
 import getAccountsWithContacts from '@salesforce/apex/AccountContactsController.getAccountsWithContacts';
 
 export default class MyParentComponent extends LightningElement {
