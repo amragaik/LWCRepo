@@ -1,4 +1,29 @@
 <template>
-    <p>This Is parent component....</p>
-    <c-my-child-component chk-val='Amra'></c-my-child-component>
+    <lightning-card title="Accounts with Contacts" icon-name="standard:account">
+        <template if:true={hasAccounts}>
+            <template for:each={accounts} for:item="account">
+                <article key={account.Id} class="slds-box slds-m-bottom_small">
+                    <div class="slds-grid slds-grid_align-spread slds-p-bottom_x-small">
+                        <h2 class="slds-text-heading_small">{account.Name}</h2>
+                        <span class="slds-text-body_small">{account.Type}</span>
+                    </div>
+                    <p class="slds-text-body_regular slds-m-bottom_x-small">
+                        <template if:true={account.Phone}>
+                            <strong>Phone:</strong> {account.Phone}
+                        </template>
+                        <template if:true={account.Website}>
+                            <br /><strong>Website:</strong> <a href={account.Website} target="_blank">{account.Website}</a>
+                        </template>
+                    </p>
+                    <c-my-child-component contacts={account.Contacts}></c-my-child-component>
+                </article>
+            </template>
+        </template>
+        <template if:true={error}>
+            <div class="slds-text-color_error slds-p-around_small">Error loading accounts.</div>
+        </template>
+        <template if:false={hasAccounts}>
+            <div class="slds-p-around_small">No accounts found.</div>
+        </template>
+    </lightning-card>
 </template>

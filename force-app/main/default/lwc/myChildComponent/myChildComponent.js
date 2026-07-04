@@ -1,15 +1,19 @@
 import { LightningElement, api } from 'lwc';
 
 export default class MyChildComponent extends LightningElement {
-    @api chkVal;
-    display(){
-        console.log(this.chkVal);
+    @api contacts = [];
+
+    get contactList() {
+        if (Array.isArray(this.contacts)) {
+            return this.contacts;
+        }
+        if (this.contacts && Array.isArray(this.contacts.records)) {
+            return this.contacts.records;
+        }
+        return [];
     }
-    /*handleClick(){
-        console.debug('inside handleclick');
-        const evt = new CustomEvent('handleClick',{
-            chkVal = this.tempVal
-        });
-        this.dispatchEvent(evt);
-            }*/
-}
+
+    get hasContacts() {
+        return this.contactList.length > 0;
+    }
+} 
